@@ -1,5 +1,6 @@
 import { KonvaEventObject } from 'konva/types/Node'
-import React, { forwardRef } from 'react'
+import { Stage as IStage } from 'konva/types/Stage'
+import React, { forwardRef, useRef } from 'react'
 import { Layer, Stage } from 'react-konva'
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
@@ -22,6 +23,7 @@ export default forwardRef<HTMLDivElement, CanvasProps>(function Canvas(
   const Bridge = useRecoilBridgeAcrossReactRoots_UNSTABLE()
   const shapeIdList = useRecoilValue(shapeIdListState)
   const setSelectedShapeId = useSetRecoilState(selectedShapeIdState)
+  const stageRef = useRef<IStage | null>(null)
 
   const checkDeselect = (event: KonvaEventObject<TouchEvent | MouseEvent>) => {
     // deselect when clicked on empty area
@@ -31,12 +33,42 @@ export default forwardRef<HTMLDivElement, CanvasProps>(function Canvas(
     }
   }
 
+  const handleWheel = (event: KonvaEventObject<WheelEvent>) => {
+    const stage = stageRef.current
+    if (stage) {
+      event.evt.preventDefault()
+
+      const scaleBy = 1.1
+      const oldScale = stage.scaleX()
+      const pointer = stage.getPointerPosition()
+      const deltaY = event.evt.deltaY
+      const newScale = deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy
+
+      if (pointer) {
+        const mousePointTo = {
+          x: (pointer.x - stage.x()) / oldScale,
+          y: (pointer.y - stage.y()) / oldScale,
+        }
+
+        stage.position({
+          x: pointer.x - mousePointTo.x * newScale,
+          y: pointer.y - mousePointTo.y * newScale,
+        })
+        stage.scale({ x: newScale, y: newScale })
+        stage.batchDraw()
+      }
+    }
+  }
+
   return (
     <section ref={ref} className="content">
       <Stage
         {...{ width, height }}
+        ref={stageRef}
         onMouseDown={checkDeselect}
         onTouchStart={checkDeselect}
+        onWheel={handleWheel}
+        draggable
       >
         <Bridge>
           <Layer>
