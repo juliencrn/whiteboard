@@ -1,0 +1,32 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Navbar-title {
+  margin: auto 16px;
+  font-size: 20px;
+}
+
+.Navbar-subtitle {
+  color: var(--blue-color);
+}
+
+.Navbar-right,
+.Navbar-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.Navbar-right > * {
+  display: flex;
+  margin: auto 16px;
+}
+
+.Navbar-logo svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--white-color);
+}

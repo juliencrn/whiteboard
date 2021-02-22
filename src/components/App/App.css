@@ -1,0 +1,44 @@
+body {
+  background-color: var(--purple-color);
+}
+
+.App {
+  position: fixed;
+  width: calc(100vw - 8px);
+  height: calc(100vh - 8px);
+  color: var(--white-color);
+  font-family: 'Courier New', Courier, monospace;
+
+  display: grid;
+  grid-template-columns: var(--left-sidebar-width) 1fr var(--right-sidebar-width);
+  grid-template-rows: var(--navbar-height) 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "navbar navbar navbar"
+    "left-sidebar canvas right-sidebar"
+    "left-sidebar canvas right-sidebar";
+}
+
+.App > * {
+  border: 4px solid var(--purple-color);
+  background-color: var(--bg-color);
+}
+
+.Navbar {
+  grid-area: navbar;
+  border-bottom: none;
+}
+
+.Left-Sidebar {
+  grid-area: left-sidebar;
+  border-right: none;
+}
+
+.Right-Sidebar {
+  grid-area: right-sidebar;
+  border-left: none;
+}
+
+.Canvas {
+  grid-area: canvas;
+}

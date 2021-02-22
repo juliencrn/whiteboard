@@ -1,0 +1,34 @@
+/* See: https://github.com/dracula/dracula-theme#color-palette */
+:root {
+  --left-sidebar-width: 300px;
+  --right-sidebar-width: 300px;
+  --navbar-height: 48px;
+}
+
+button {
+  background: var(--purple-color);
+  border-color: var(--purple-color);
+}
+
+.input-group {
+  padding: 8px 16px;
+  color: var(--blue-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-group input,
+.input-group select,
+.input-group option {
+  width: 120px;
+}
+
+input, select, option {
+  padding: 4px 8px;
+  background: var(--blue-color);
+  color: var(--white-color);
+  border: none;
+  outline: none!important;
+}
+

@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { CSSProperties, FC, ReactNode } from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import { RecoilRoot } from 'recoil'
+
+import App from './components/App/App'
+import { colors } from './components/App/colors'
 import reportWebVitals from './reportWebVitals'
+
+const variables = colors.map(([name, hex]) => ({
+  [`--${name}-color`]: hex,
+}))
+
+const ThemeProvider: FC = ({ children }) => (
+  <div style={Object.assign({}, ...variables) as CSSProperties}>{children}</div>
+)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RecoilRoot>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root'),
 )
