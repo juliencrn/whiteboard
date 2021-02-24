@@ -1,44 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { CSSProperties } from 'react'
 
 import './global.css'
 import './App.css'
 
 import 'normalize-css'
-import useEventListener from '../../hooks/useEventListener'
 
 import Navbar from '../Navbar/Navbar'
-import Canvas, { CanvasProps } from '../Canvas'
-import LeftSidebar from '../Sidebar/LeftSidebar'
-import RightSidebar from '../Sidebar/RightSidebar'
+import Canvas from '../Canvas'
+import Sidebar from '../Sidebar/Sidebar'
+import useWindowSize from '../../hooks/useWindowSize'
+import { borderSize, colors, navbarHeight, sidebarWidth } from './theme'
+
+const cssVariables = Object.assign(
+  {},
+  ...colors.map(([name, hex]) => ({
+    [`--${name}-color`]: hex,
+  })),
+  { '--sidebar-width': `${sidebarWidth}px` },
+  { '--navbar-height': `${navbarHeight}px` },
+  { '--border-size': `${borderSize}px` },
+) as CSSProperties
 
 function App() {
   console.log('render <App />')
-  const canvasRef = useRef<HTMLDivElement | null>(null)
-  const [canvasSize, setCanvasSize] = useState<CanvasProps>({
-    width: 0,
-    height: 0,
-  })
 
-  const updateCanvasSize = () => {
-    const canvas = canvasRef.current
-    if (canvas) {
-      setCanvasSize({
-        width: canvas.offsetWidth,
-        height: canvas.offsetHeight,
-      })
-    }
-  }
-
-  useEventListener('resize', updateCanvasSize)
-
-  useEffect(() => updateCanvasSize(), [])
+  const { width, height } = useWindowSize()
 
   return (
-    <main className="App">
+    <main className="App" style={cssVariables}>
       <Navbar />
-      <LeftSidebar />
-      <Canvas ref={canvasRef} {...canvasSize} />
-      <RightSidebar />
+      <Sidebar />
+      <Canvas width={width} height={height} />
     </main>
   )
 }

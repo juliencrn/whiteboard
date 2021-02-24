@@ -1,16 +1,14 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import './Sidebar.css'
-
 import {
   rectStateFamily,
   selectedShapeIdState,
   shapeIdListState,
-} from '../../atoms/shapes'
-import AddShapeButton from '../AddShapeButton'
+} from '../../../atoms/shapes'
+import './Layers.css'
 
-function SidebarItem(props: { shapeId: string }) {
-  console.log('render <SidebarItem />')
+function Layer(props: { shapeId: string }) {
+  console.log('render <Layer />')
 
   const [shape, setShape] = useRecoilState(rectStateFamily(props.shapeId))
   const [selectedId, setSelectedId] = useRecoilState(selectedShapeIdState)
@@ -36,7 +34,7 @@ function SidebarItem(props: { shapeId: string }) {
   return (
     <li
       key={props.shapeId}
-      className={`Sidebar-item ${active ? 'active' : ''}`}
+      className={`Layer ${active ? 'active' : ''}`}
       onClick={handleClick}
     >
       {isEditing ? (
@@ -48,21 +46,19 @@ function SidebarItem(props: { shapeId: string }) {
   )
 }
 
-export default function LeftSidebar() {
-  console.log('render <Sidebar />')
+export default function Layers() {
+  console.log('render <Layers />')
+
   const shapeIdList = useRecoilValue(shapeIdListState)
 
   return (
-    <aside className="Sidebar Left-Sidebar">
-      <h2 className="Sidebar-title">
-        Shapes
-        <AddShapeButton />
-      </h2>
-      <ul className="Sidebar-shape-list">
+    <div className="Layers">
+      <h2 className="Sidebar-title">Shapes</h2>
+      <ul>
         {shapeIdList.map(shapeId => (
-          <SidebarItem key={shapeId} shapeId={shapeId} />
+          <Layer key={shapeId} shapeId={shapeId} />
         ))}
       </ul>
-    </aside>
+    </div>
   )
 }

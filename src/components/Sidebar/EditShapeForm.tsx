@@ -1,13 +1,17 @@
 import React, { ChangeEvent } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import './Sidebar.css'
-import { round } from '../../utils'
-
 import { rectStateFamily, selectedShapeIdState } from '../../atoms/shapes'
-import { Color, colors, getColorFromName } from '../App/colors'
+import { round } from '../../utils'
+import { Color, colors, getColorFromName } from '../App/theme'
 
-function SidebarSelectedShape({ id }: { id: string }) {
-  console.log('render <SidebarSelectedShape />')
+export default function EditShapeForm() {
+  console.log('render <EditShapeForm />')
+  const id = useRecoilValue(selectedShapeIdState)
+  return id ? <EditForm id={id} /> : null
+}
+
+function EditForm({ id }: { id: string }) {
+  console.log('render <EditForm />')
   const [shape, setShape] = useRecoilState(rectStateFamily(id))
 
   const handleNumberChange = (
@@ -25,7 +29,7 @@ function SidebarSelectedShape({ id }: { id: string }) {
   const fields = ['x', 'y', 'width', 'height', 'rotation']
 
   return (
-    <div>
+    <div className="EditShapeForm">
       <h2 className="Sidebar-title">Selected shape</h2>
 
       <form>
@@ -53,17 +57,5 @@ function SidebarSelectedShape({ id }: { id: string }) {
         </div>
       </form>
     </div>
-  )
-}
-
-export default function RightSidebar() {
-  console.log('render <RightSidebar />')
-
-  const id = useRecoilValue(selectedShapeIdState)
-
-  return (
-    <aside className="Sidebar Right-Sidebar">
-      {id && <SidebarSelectedShape id={id} />}
-    </aside>
   )
 }

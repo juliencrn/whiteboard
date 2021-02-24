@@ -7,7 +7,7 @@ import { Transformer as ITransformer } from 'konva/types/shapes/Transformer'
 import { KonvaEventObject } from 'konva/types/Node'
 
 import { rectStateFamily, selectedShapeIdState } from '../atoms/shapes'
-import { getColorFromName } from './App/colors'
+import { getColorFromName } from './App/theme'
 
 export interface RectangleProps {
   id: string

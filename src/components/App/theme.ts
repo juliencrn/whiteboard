@@ -13,6 +13,7 @@ export type Color =
   | 'red'
   | 'yellow'
 
+/* See: https://github.com/dracula/dracula-theme#color-palette */
 export const colors: [Color, CSSProperties['color']][] = [
   ['bg', '#282a36'],
   ['selection', '#44475a'],
@@ -31,3 +32,7 @@ export function getColorFromName(name: Color): CSSProperties['color'] {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return colors.find(color => color[0] === name)![1]
 }
+
+export const sidebarWidth = 256
+export const navbarHeight = 48
+export const borderSize = 4

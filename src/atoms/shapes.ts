@@ -1,6 +1,6 @@
 import { atom, atomFamily } from 'recoil'
 import { RectConfig } from 'konva/types/shapes/Rect'
-import { Color } from '../components/App/colors'
+import { Color, navbarHeight, sidebarWidth } from '../components/App/theme'
 
 export interface RectModel extends RectConfig {
   id: string
@@ -30,8 +30,8 @@ export const rectStateFamily = atomFamily<RectModel, string>({
     id,
     name: 'Rect',
     createdAt: Date.now(),
-    x: 150,
-    y: 150,
+    x: 48 + sidebarWidth,
+    y: 48 + navbarHeight,
     width: 100,
     height: 100,
     rotation: 0,

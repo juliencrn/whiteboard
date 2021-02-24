@@ -1,0 +1,17 @@
+.Layers ul {
+  padding: 0;
+  margin: 0;
+}
+
+.Layer {
+  height: 48px;
+  padding: 0 16px;
+  color: var(--blue-color);
+  display: flex;
+  align-items: center;
+}
+
+.Layer.active {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+}

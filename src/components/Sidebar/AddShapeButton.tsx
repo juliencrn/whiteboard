@@ -1,7 +1,7 @@
 import React from 'react'
 import { v4 as uuid } from 'uuid'
 import { useSetRecoilState } from 'recoil'
-import { selectedShapeIdState, shapeIdListState } from '../atoms/shapes'
+import { selectedShapeIdState, shapeIdListState } from '../../atoms/shapes'
 
 export default function AddShapeButton() {
   console.log('render <AddShapeButton />')

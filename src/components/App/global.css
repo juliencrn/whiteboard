@@ -1,9 +1,5 @@
-/* See: https://github.com/dracula/dracula-theme#color-palette */
-:root {
-  --left-sidebar-width: 300px;
-  --right-sidebar-width: 300px;
-  --navbar-height: 48px;
-}
+
+
 
 button {
   background: var(--purple-color);

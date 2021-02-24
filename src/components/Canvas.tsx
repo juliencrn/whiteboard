@@ -1,6 +1,6 @@
 import { KonvaEventObject } from 'konva/types/Node'
 import { Stage as IStage } from 'konva/types/Stage'
-import React, { forwardRef, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Layer, Stage } from 'react-konva'
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
@@ -15,10 +15,7 @@ export interface CanvasProps {
   height: number
 }
 
-export default forwardRef<HTMLDivElement, CanvasProps>(function Canvas(
-  { width, height },
-  ref,
-) {
+export default function Canvas({ width, height }: CanvasProps) {
   console.log('render <Canvas />')
   const Bridge = useRecoilBridgeAcrossReactRoots_UNSTABLE()
   const shapeIdList = useRecoilValue(shapeIdListState)
@@ -61,23 +58,21 @@ export default forwardRef<HTMLDivElement, CanvasProps>(function Canvas(
   }
 
   return (
-    <section ref={ref} className="content">
-      <Stage
-        {...{ width, height }}
-        ref={stageRef}
-        onMouseDown={checkDeselect}
-        onTouchStart={checkDeselect}
-        onWheel={handleWheel}
-        draggable
-      >
-        <Bridge>
-          <Layer>
-            {shapeIdList.map(shapeId => (
-              <Rectangle key={shapeId} id={shapeId} />
-            ))}
-          </Layer>
-        </Bridge>
-      </Stage>
-    </section>
+    <Stage
+      {...{ width, height }}
+      ref={stageRef}
+      onMouseDown={checkDeselect}
+      onTouchStart={checkDeselect}
+      onWheel={handleWheel}
+      draggable
+    >
+      <Bridge>
+        <Layer>
+          {shapeIdList.map(shapeId => (
+            <Rectangle key={shapeId} id={shapeId} />
+          ))}
+        </Layer>
+      </Bridge>
+    </Stage>
   )
-})
+}
