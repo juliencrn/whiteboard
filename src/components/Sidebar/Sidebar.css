@@ -4,6 +4,7 @@
 }
 
 .Sidebar > * {
+  background-color: var(--bg-color);
   border: var(--border-size) solid var(--purple-color);
   margin-bottom: 16px;
 }
@@ -21,6 +22,8 @@
 .Sidebar-shape-list {
   border: var(--border-size) solid var(--purple-color);
   flex: 1;
+  max-height: 100%;
+  overflow-y: hidden;
 }
 
 .Sidebar-item input {

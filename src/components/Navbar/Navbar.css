@@ -28,5 +28,6 @@
 .Navbar-logo svg {
   width: 24px;
   height: 24px;
-  fill: var(--white-color);
+  fill: var(--bg-color);
+  stroke: var(--white-color);
 }

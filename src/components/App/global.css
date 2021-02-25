@@ -1,23 +1,21 @@
-
-
-
 button {
   background: var(--purple-color);
   border-color: var(--purple-color);
 }
 
 .input-group {
-  padding: 8px 16px;
+  padding: 0px 16px;
   color: var(--blue-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 }
 
 .input-group input,
 .input-group select,
 .input-group option {
-  width: 120px;
+  width: 96px;
 }
 
 input, select, option {
@@ -26,5 +24,25 @@ input, select, option {
   color: var(--white-color);
   border: none;
   outline: none!important;
+  max-width: 100%;
 }
 
+/* Custom ScrollBar */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--blue-color);
+  transition: background 200ms;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--purple-color);
+  transition: background 200ms;
+}
