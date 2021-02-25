@@ -1,6 +1,7 @@
 .Layers {
   flex: 1;
   max-height: 100%;
+  min-height: 100%;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
@@ -9,14 +10,16 @@
 .Layers ul {
   padding: 0;
   margin: 0;
+  flex: 1;
   overflow-y: auto;
   max-height: 100%;
 }
 
+/* List style made in JS */
 .Layer {
+  user-select: none;
   height: 48px;
   padding: 0 16px;
-  color: var(--blue-color);
   display: flex;
   align-items: center;
 }
