@@ -1,0 +1,17 @@
+.MenuCreator {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.MenuCreator button {
+  border: none;
+  padding: 8px;
+  display: flex;
+  background: none;
+  outline: none;
+}
+
+.MenuCreator svg {
+  stroke: var(--purple-color);
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Sidebar.css'
 
-import AddShapeButton from './AddShapeButton'
+import MenuCreator from './MenuCreator/MenuCreator'
 import EditShapeForm from './EditShapeForm'
 import Layers from './Layers/Layers'
 
@@ -11,7 +11,7 @@ export default function Sidebar() {
   return (
     <aside className="Sidebar">
       <div className="Sidebar-menu-creator">
-        <AddShapeButton />
+        <MenuCreator />
       </div>
       <div className="Sidebar-shape-list">
         <Layers />

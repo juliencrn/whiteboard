@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { rectStateFamily, selectedShapeIdState } from '../../atoms/shapes'
+import { shapeStateFamily, selectedShapeIdState } from '../../atoms/shapes'
 import { round } from '../../utils'
 import { Color, colors, getColorFromName } from '../App/theme'
 
@@ -12,7 +12,7 @@ export default function EditShapeForm() {
 
 function EditForm({ id }: { id: string }) {
   console.log('render <EditForm />')
-  const [shape, setShape] = useRecoilState(rectStateFamily(id))
+  const [shape, setShape] = useRecoilState(shapeStateFamily(id))
 
   const handleNumberChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -40,7 +40,7 @@ function EditForm({ id }: { id: string }) {
               type="number"
               name={key}
               onChange={e => handleNumberChange(e, key)}
-              value={round(shape[key])}
+              value={round(shape.shapeProps[key])}
             />
           </div>
         ))}

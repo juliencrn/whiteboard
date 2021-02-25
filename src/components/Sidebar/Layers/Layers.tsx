@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
-  rectStateFamily,
+  shapeStateFamily,
   selectedShapeIdState,
   shapeIdListState,
 } from '../../../atoms/shapes'
@@ -10,7 +10,7 @@ import './Layers.css'
 function Layer(props: { shapeId: string }) {
   console.log('render <Layer />')
 
-  const [shape, setShape] = useRecoilState(rectStateFamily(props.shapeId))
+  const [shape, setShape] = useRecoilState(shapeStateFamily(props.shapeId))
   const [selectedId, setSelectedId] = useRecoilState(selectedShapeIdState)
   const active = shape.id === selectedId
   const [isEditing, setIsEditing] = useState<boolean>(false)

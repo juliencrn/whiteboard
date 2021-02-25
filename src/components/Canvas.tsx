@@ -1,14 +1,14 @@
 import { KonvaEventObject } from 'konva/types/Node'
 import { Stage as IStage } from 'konva/types/Stage'
 import React, { useRef } from 'react'
-import { Layer, Stage } from 'react-konva'
+import { Circle, Layer, Stage } from 'react-konva'
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
   useRecoilValue,
   useSetRecoilState,
 } from 'recoil'
 import { selectedShapeIdState, shapeIdListState } from '../atoms/shapes'
-import Rectangle from '../components/Rectangle'
+import Shape from './Shape'
 
 export interface CanvasProps {
   width: number
@@ -69,7 +69,7 @@ export default function Canvas({ width, height }: CanvasProps) {
       <Bridge>
         <Layer>
           {shapeIdList.map(shapeId => (
-            <Rectangle key={shapeId} id={shapeId} />
+            <Shape key={shapeId} id={shapeId} />
           ))}
         </Layer>
       </Bridge>

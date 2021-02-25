@@ -1,17 +1,23 @@
 import { atom, atomFamily } from 'recoil'
-import { RectConfig } from 'konva/types/shapes/Rect'
 import { Color, navbarHeight, sidebarWidth } from '../components/App/theme'
+import { RectConfig } from 'konva/types/shapes/Rect'
+import { CircleConfig } from 'konva/types/shapes/Circle'
 
-export interface RectModel extends RectConfig {
+export type ShapeType =
+  | 'Rect'
+  | 'Circle'
+  | 'Triangle'
+  | 'Text'
+  | 'Line'
+  | 'Image'
+
+export interface IShape {
   id: string
+  type: ShapeType
   name: string
   createdAt: number
-  x: number
-  y: number
-  width: number
-  height: number
-  rotation: number
   color: Color
+  shapeProps: RectConfig | CircleConfig
 }
 
 export const shapeIdListState = atom<string[]>({
@@ -24,17 +30,24 @@ export const selectedShapeIdState = atom<string | null>({
   default: null,
 })
 
-export const rectStateFamily = atomFamily<RectModel, string>({
-  key: 'rect-state-family',
-  default: id => ({
-    id,
-    name: 'Rect',
-    createdAt: Date.now(),
-    x: 48 + sidebarWidth,
-    y: 48 + navbarHeight,
-    width: 100,
-    height: 100,
-    rotation: 0,
-    color: 'blue',
-  }),
+export const shapeStateFamily = atomFamily<IShape, string>({
+  key: 'shape-state-family',
+  default: id => {
+    const type = id.split('-')[0] as ShapeType
+    return {
+      id: `${type}-${id}`,
+      type,
+      name: `${type}`,
+      createdAt: Date.now(),
+      color: 'blue',
+      shapeProps: {
+        x: 48 + sidebarWidth,
+        y: 48 + navbarHeight,
+        width: 100,
+        height: 100,
+        rotation: 0,
+        radius: type === 'Circle' ? 50 : 0,
+      },
+    }
+  },
 })

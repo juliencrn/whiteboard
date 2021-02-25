@@ -1,25 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { RefObject, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 
-import { Rect, Transformer } from 'react-konva'
+import { Circle, Rect, Transformer } from 'react-konva'
 import { Rect as IRect } from 'konva/types/shapes/Rect'
+import { Circle as ICircle } from 'konva/types/shapes/Circle'
 import { Transformer as ITransformer } from 'konva/types/shapes/Transformer'
 import { KonvaEventObject } from 'konva/types/Node'
 
-import { rectStateFamily, selectedShapeIdState } from '../atoms/shapes'
+import {
+  shapeStateFamily,
+  selectedShapeIdState,
+  IShape,
+  ShapeType,
+} from '../atoms/shapes'
 import { getColorFromName } from './App/theme'
 
-export interface RectangleProps {
+export interface ShapeProps {
   id: string
 }
 
-const Rectangle = ({ id }: RectangleProps) => {
+const Shape = ({ id }: ShapeProps) => {
   console.log('render <Rectangle />')
-  const [shape, setShape] = useRecoilState(rectStateFamily(id))
+  const [shape, setShape] = useRecoilState(shapeStateFamily(id))
   const [selectedId, setSelectedId] = useRecoilState(selectedShapeIdState)
-  const shapeRef = React.useRef<IRect | null>(null)
+  const shapeRef = React.useRef<ICircle | IRect | null>(null)
   const trRef = React.useRef<ITransformer | null>(null)
   const isSelected = id === selectedId
+  const type = id.split('-')[0] as ShapeType
 
   const handleSelect = () => {
     setSelectedId(id)
@@ -42,20 +49,26 @@ const Rectangle = ({ id }: RectangleProps) => {
 
     setShape({
       ...shape,
-      x: node.x(),
-      y: node.y(),
-      // set minimal value
-      width: Math.max(5, node.width() * scaleX),
-      height: Math.max(node.height() * scaleY),
-      rotation: node.rotation(),
+      shapeProps: {
+        ...shape.shapeProps,
+        x: node.x(),
+        y: node.y(),
+        // set minimal value
+        width: Math.max(5, node.width() * scaleX),
+        height: Math.max(node.height() * scaleY),
+        rotation: node.rotation(),
+      },
     })
   }
 
   const handleDragEnd = (event: KonvaEventObject<DragEvent>) => {
     setShape({
       ...shape,
-      x: event.target.x(),
-      y: event.target.y(),
+      shapeProps: {
+        ...shape.shapeProps,
+        x: event.target.x(),
+        y: event.target.y(),
+      },
     })
   }
 
@@ -67,21 +80,29 @@ const Rectangle = ({ id }: RectangleProps) => {
     }
   }, [isSelected])
 
+  const props = {
+    ...shape.shapeProps,
+    draggable: true,
+    fill: getColorFromName(shape.color),
+    onClick: handleSelect,
+    onTap: handleSelect,
+    onDragEnd: handleDragEnd,
+    onTransformEnd: handleTransformEnd,
+  }
+
   return (
     <>
-      <Rect
-        {...shape}
-        onClick={handleSelect}
-        onTap={handleSelect}
-        ref={shapeRef}
-        fill={getColorFromName(shape.color)}
-        draggable
-        onDragEnd={handleDragEnd}
-        onTransformEnd={handleTransformEnd}
-      />
+      {type === 'Circle' && (
+        <Circle {...props} ref={shapeRef as RefObject<ICircle>} radius={50} />
+      )}
+
+      {type === 'Rect' && (
+        <Rect {...props} ref={shapeRef as RefObject<IRect>} radius={50} />
+      )}
+
       {isSelected && <Transformer ref={trRef} />}
     </>
   )
 }
 
-export default Rectangle
+export default Shape
